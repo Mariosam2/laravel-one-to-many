@@ -21,11 +21,23 @@ Add Project
         <input type="text" name="title" id="title" class="form-control" placeholder="" aria-describedby="helpId" value="{{old('title')}}">
         <small id=" helpId" class="text-muted">*title is mandatory, must be unique and the max length is 50 chars</small>
     </div>
-    <div class="mb-3">
-        <label for="img" class="form-label">Choose file</label>
-        <input type="file" class="form-control" name="img" id="img" placeholder="" aria-describedby="fileHelpId" value="{{old('img')}}">
-        <div id="fileHelpId" class="form-text">*max size 300KB</div>
+    <div class="d-flex">
+        <div class="mb-3">
+            <label for="img" class="form-label">Choose file</label>
+            <input type="file" class="form-control" name="img" id="img" placeholder="" aria-describedby="fileHelpId" value="{{old('img')}}">
+            <div id="fileHelpId" class="form-text">*max size 300KB</div>
+        </div>
+        <div class="mb-3 ms-4">
+            <label for="type_id" class="form-label">Types</label>
+            <select class="form-select form-select-md" name="type_id" id="type_id">
+                <option selected>None</option>
+                @foreach($types as $type)
+                <option value="{{$type->id}}" {{old('type_id') == $type->id ? 'selected' : ''}}>{{$type->name}}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
+
     <div class="mb-3">
         <label for="description" class="form-label">Description</label>
         <textarea class="form-control" name="description" id="description" rows="3">{{old('description')}}</textarea>
