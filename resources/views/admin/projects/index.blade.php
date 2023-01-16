@@ -49,7 +49,7 @@ Projects
                         <a class="d-flex text-white  p-3 py-2 m-2 bg-primary justify-content-center rounded-2" href="{{route('admin.projects.show', $project->slug)}}"><i class="fa-solid fa-eye"></i></a>
                         <a class="d-flex text-white  p-3 py-2 m-2 bg-secondary justify-content-center rounded-2" href="{{route('admin.projects.edit', $project->slug)}}"><i class="fa-solid fa-pen-to-square"></i></a>
 
-                        <form action="{{route('admin.projects.destroy', $project->slug)}}" class="m-2 bg-danger rounded-2" method="post">
+                        <form action="{{route('admin.projects.destroy', $project->slug)}}" class="m-2 bg-danger rounded-2" method="post" enctype="multipart/form-data">
                             @method('DELETE')
                             @csrf
                             <!-- Modal trigger button -->

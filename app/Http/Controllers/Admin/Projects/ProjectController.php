@@ -44,8 +44,11 @@ class ProjectController extends Controller
     {
         $val_data = $request->validated();
         //dd($val_data);
-        $img_path = Storage::put('images', $val_data['img']);
-        $val_data['img'] = $img_path;
+        if ($request->hasFile('img')) {
+            $img_path = Storage::put('images', $val_data['img']);
+            $val_data['img'] = $img_path;
+        }
+
         $project = $val_data;
         $val_data = Project::make($val_data)->getProjectWithSlug($val_data['title'])->save();
         return to_route('admin.projects.index')->with('storeMsg', $project['title']);
@@ -107,6 +110,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        //dd($project);
         if ($project->img) {
             Storage::delete($project->img);
         }
