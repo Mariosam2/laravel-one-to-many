@@ -29,6 +29,17 @@ Edit Project
             <input type="file" class="form-control" name="img" id="img" placeholder="" aria-describedby="fileHelpId" value="{{old('img', $project->img)}}">
             <div id="fileHelpId" class="form-text">*max size 300KB</div>
         </div>
+        <div class="mb-3 ms-4">
+            <label for="type_id" class="form-label">Types</label>
+            <select class="form-select form-select-md" name="type_id" id="type_id">
+                <option selected>None</option>
+                @foreach($types as $type)
+                @if($project->type)
+                <option value="{{$type->id}}" {{old('type_id', $project->type->id) == $type->id ? 'selected' : ''}}>{{$type->name}}</option>
+                @endif
+                @endforeach
+            </select>
+        </div>
     </div>
 
     <div class=" mb-3">
