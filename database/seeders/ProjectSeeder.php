@@ -28,6 +28,18 @@ class ProjectSeeder extends Seeder
             $project->creation_date = $faker->date();
             $project->img = 'images/' . 'placeholder.webp';
 
+
+            $project->save();
+        }
+    }
+}
+
+
+
+
+
+
+
             //$img = $faker->image(storage_path() . '/app/public/images', 640, 480);
             //$imgUrl = $faker->imageUrl(640, 480);
             //dd($imgUrl);
@@ -47,8 +59,3 @@ class ProjectSeeder extends Seeder
 
             fclose($fp);
             curl_close($ch); */
-
-            $project->save();
-        }
-    }
-}
