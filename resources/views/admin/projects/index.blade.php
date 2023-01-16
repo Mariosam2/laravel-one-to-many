@@ -7,7 +7,21 @@ Projects
 
 @endsection
 @section('content')
+
 <div class="container mt-4">
+    @if(Session::has('storeMsg'))
+    <div class="alert alert-success" role="alert">
+        <strong>{{Session::get('storeMsg')}}</strong> created successfully
+    </div>
+    @elseif(Session::has('updateMsg'))
+    <div class="alert alert-success" role="alert">
+        <strong>{{Session::get('updateMsg')}}</strong> updated successfully
+    </div>
+    @elseif(Session::has('deleteMsg'))
+    <div class="alert alert-danger" role="alert">
+        <strong>{{Session::get('deleteMsg')}}</strong> deleted succesfully
+    </div>
+    @endif
     <div class="table-responsive">
         <table class="table table-striped
     table-hover	
@@ -45,7 +59,7 @@ Projects
 
                             <!-- Modal Body -->
                             <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-                            <div class="modal fade" id="modal{{$project->id}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                            <div class="modal fade" id="modal{{$project->id}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal{{$project->id}}" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">

@@ -8,6 +8,7 @@ use App\Http\Requests\ProjectUpdateRequest;
 use App\Models\Project;
 use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
+use Termwind\Components\Span;
 
 class ProjectController extends Controller
 {
@@ -45,8 +46,9 @@ class ProjectController extends Controller
         //dd($val_data);
         $img_path = Storage::put('images', $val_data['img']);
         $val_data['img'] = $img_path;
+        $project = $val_data;
         $val_data = Project::make($val_data)->getProjectWithSlug()->save();
-        return to_route('admin.projects.index');
+        return to_route('admin.projects.index')->with('storeMsg', $project['title']);
     }
 
     /**
@@ -94,7 +96,7 @@ class ProjectController extends Controller
         }
         //dd($val_data);
         $project->getProjectWithSlug()->update($val_data);
-        return to_route('admin.projects.index');
+        return to_route('admin.projects.index')->with('updateMsg', $project->title);
     }
 
     /**
@@ -110,6 +112,6 @@ class ProjectController extends Controller
         }
 
         $project->delete();
-        return to_route('admin.projects.index');
+        return to_route('admin.projects.index')->with('deleteMsg', $project->title);
     }
 }
