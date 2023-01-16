@@ -8,6 +8,7 @@ use App\Http\Requests\ProjectUpdateRequest;
 use App\Models\Project;
 use App\Models\Type;
 use Illuminate\Support\Facades\Storage;
+use Termwind\Components\Span;
 
 class ProjectController extends Controller
 {
@@ -43,10 +44,14 @@ class ProjectController extends Controller
     {
         $val_data = $request->validated();
         //dd($val_data);
-        $img_path = Storage::put('images', $val_data['img']);
-        $val_data['img'] = $img_path;
-        $val_data = Project::make($val_data)->getProjectWithSlug()->save();
-        return to_route('admin.projects.index');
+        if ($request->hasFile('img')) {
+            $img_path = Storage::put('images', $val_data['img']);
+            $val_data['img'] = $img_path;
+        }
+
+        $project = $val_data;
+        $val_data = Project::make($val_data)->getProjectWithSlug($val_data['title'])->save();
+        return to_route('admin.projects.index')->with('storeMsg', $project['title']);
     }
 
     /**
@@ -93,8 +98,8 @@ class ProjectController extends Controller
             $val_data['img'] = $img_path;
         }
         //dd($val_data);
-        $project->getProjectWithSlug()->update($val_data);
-        return to_route('admin.projects.index');
+        $project->getProjectWithSlug($val_data['title'])->update($val_data);
+        return to_route('admin.projects.index')->with('updateMsg', $project->title);
     }
 
     /**
@@ -105,11 +110,12 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        //dd($project);
         if ($project->img) {
             Storage::delete($project->img);
         }
 
         $project->delete();
-        return to_route('admin.projects.index');
+        return to_route('admin.projects.index')->with('deleteMsg', $project->title);
     }
 }

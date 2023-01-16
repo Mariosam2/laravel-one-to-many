@@ -62,3 +62,10 @@ a {
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
 }
+
+// Types views rules
+
+.ms_type {
+    border: 1px solid $secondary;
+    border-radius: 0.5rem;
+}

@@ -7,7 +7,21 @@ Projects
 
 @endsection
 @section('content')
+
 <div class="container mt-4">
+    @if(Session::has('storeMsg'))
+    <div class="alert alert-success" role="alert">
+        <strong>{{Session::get('storeMsg')}}</strong> created successfully
+    </div>
+    @elseif(Session::has('updateMsg'))
+    <div class="alert alert-success" role="alert">
+        <strong>{{Session::get('updateMsg')}}</strong> updated successfully
+    </div>
+    @elseif(Session::has('deleteMsg'))
+    <div class="alert alert-danger" role="alert">
+        <strong>{{Session::get('deleteMsg')}}</strong> deleted succesfully
+    </div>
+    @endif
     <div class="table-responsive">
         <table class="table table-striped
     table-hover	
@@ -35,7 +49,7 @@ Projects
                         <a class="d-flex text-white  p-3 py-2 m-2 bg-primary justify-content-center rounded-2" href="{{route('admin.projects.show', $project->slug)}}"><i class="fa-solid fa-eye"></i></a>
                         <a class="d-flex text-white  p-3 py-2 m-2 bg-secondary justify-content-center rounded-2" href="{{route('admin.projects.edit', $project->slug)}}"><i class="fa-solid fa-pen-to-square"></i></a>
 
-                        <form action="{{route('admin.projects.destroy', $project->slug)}}" class="m-2 bg-danger rounded-2" method="post">
+                        <form action="{{route('admin.projects.destroy', $project->slug)}}" class="m-2 bg-danger rounded-2" method="post" enctype="multipart/form-data">
                             @method('DELETE')
                             @csrf
                             <!-- Modal trigger button -->
@@ -45,7 +59,7 @@ Projects
 
                             <!-- Modal Body -->
                             <!-- if you want to close by clicking outside the modal, delete the last endpoint:data-bs-backdrop and data-bs-keyboard -->
-                            <div class="modal fade" id="modal{{$project->id}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                            <div class="modal fade" id="modal{{$project->id}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modal{{$project->id}}" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-sm" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">

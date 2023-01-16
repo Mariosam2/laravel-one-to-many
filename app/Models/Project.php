@@ -17,9 +17,9 @@ class Project extends Model
         return $this->belongsTo(Type::class);
     }
 
-    public  function getProjectWithSlug()
+    public  function getProjectWithSlug($title)
     {
-        $this->setAttribute('slug', Str::slug($this->getAttribute('title')));
+        $this->setAttribute('slug', Str::slug($title));
         return $this;
     }
 }
