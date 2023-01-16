@@ -27,6 +27,7 @@ class ProjectSeeder extends Seeder
             $project->description = $faker->text();
             $project->creation_date = $faker->date();
             $project->img = 'images/' . 'placeholder.webp';
+            $project->type_id = 1;
 
 
             $project->save();
