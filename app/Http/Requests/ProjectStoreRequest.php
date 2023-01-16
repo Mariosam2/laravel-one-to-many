@@ -27,7 +27,8 @@ class ProjectStoreRequest extends FormRequest
             'title' => ['required', 'unique:projects', 'max:50'],
             'img' => ['nullable', 'image', 'max:300'],
             'description' => ['nullable', 'max:255'],
-            'creation_date' => ['nullable', 'date']
+            'creation_date' => ['nullable', 'date'],
+            'type_id' => ['nullable', 'exists:types,id']
         ];
     }
 }
