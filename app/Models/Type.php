@@ -17,9 +17,9 @@ class Type extends Model
         return $this->hasMany(Project::class);
     }
 
-    public  function getTypeWithSlug()
+    public  function getTypeWithSlug($name)
     {
-        $this->setAttribute('slug', Str::slug($this->getAttribute('name')));
+        $this->setAttribute('slug', Str::slug($name));
         return $this;
     }
 }

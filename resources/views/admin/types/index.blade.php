@@ -9,19 +9,23 @@ Types
 
 @section('content')
 <div class="container mt-4 ms-2">
-    @if(Session::has('storeMsg'))
-    <div class="alert alert-success" role="alert">
-        <strong>{{Session::get('storeMsg')}}</strong> created successfully
+    <div class="row">
+        <div class="col-12 col-xxl-8">
+            @if(Session::has('storeMsg'))
+            <div class="alert alert-success" role="alert">
+                <strong>{{Session::get('storeMsg')}}</strong> created successfully
+            </div>
+            @elseif(Session::has('updateMsg'))
+            <div class="alert alert-success" role="alert">
+                <strong>{{Session::get('updateMsg')}}</strong> updated successfully
+            </div>
+            @elseif(Session::has('deleteMsg'))
+            <div class="alert alert-danger" role="alert">
+                <strong>{{Session::get('deleteMsg')}}</strong> deleted succesfully
+            </div>
+            @endif
+        </div>
     </div>
-    @elseif(Session::has('updateMsg'))
-    <div class="alert alert-success" role="alert">
-        <strong>{{Session::get('updateMsg')}}</strong> updated successfully
-    </div>
-    @elseif(Session::has('deleteMsg'))
-    <div class="alert alert-danger" role="alert">
-        <strong>{{Session::get('deleteMsg')}}</strong> deleted succesfully
-    </div>
-    @endif
     <div class="row">
         <div class="col-12 col-xxl-8">
             <div class="table-responsive">

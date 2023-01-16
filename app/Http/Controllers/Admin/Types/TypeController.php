@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TypeStoreRequest;
 use App\Http\Requests\TypeUpdateRequest;
 use App\Models\Type;
-use Illuminate\Http\Request;
 
 class TypeController extends Controller
 {
@@ -17,7 +16,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::all();
+        $types = Type::orderByDesc('id')->get();
         return view('admin.types.index', compact('types'));
     }
 
@@ -41,7 +40,7 @@ class TypeController extends Controller
     {
         $val_data = $request->validated();
         $type = $val_data;
-        Type::make($val_data)->getTypeWithSlug()->save();
+        Type::make($val_data)->getTypeWithSlug($val_data['name'])->save();
         return to_route('admin.types.index')->with('storeMsg', $type['name']);
     }
 
@@ -76,7 +75,10 @@ class TypeController extends Controller
      */
     public function update(TypeUpdateRequest $request, Type $type)
     {
-        //
+        $val_data = $request->validated();
+        //dd($val_data);
+        $type->getTypeWithSlug($val_data['name'])->update($val_data);
+        return to_route('admin.types.index')->with('updateMsg', $type->name);
     }
 
     /**
@@ -87,6 +89,7 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        $type->delete();
+        return to_route('admin.types.index')->with('deleteMsg', $type->name);
     }
 }
