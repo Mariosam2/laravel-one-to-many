@@ -67,6 +67,12 @@
                                 Projects
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link ms_nav-link {{str_contains(Route::currentRouteName(),'admin.projects') ? 'ms_active' : ''}}" href="{{route('admin.projects.index')}}">
+                                <span class="align-text-bottom"><i class="fa-solid fa-pencil"></i></span>
+                                Projects
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
