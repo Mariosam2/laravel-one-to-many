@@ -12,9 +12,11 @@
                     @csrf
                     <div class="mb-3">
                         <div class="input-group mb-3">
-                            <input type="text" name="name" id="name" class="form-control {{@error('name')  is-invalid @enderror}}">
-                            <button type="submit" class="input-group-text btn btn-secondary rounded-end"
-                                id="inputGroup-sizing-default">Add<i class="fa-solid fa-plus ms-2"></i>
+                            <input type="text" name="name" id="name"
+                                class="form-control @error('name')  is-invalid @enderror">
+                            <button type="submit"
+                                class="input-group-text btn btn-dark rounded-end"id="inputGroup-sizing-default">Add
+                                <i class="fa-solid fa-plus ms-2"></i>
                             </button>
                         </div>
                     </div>
@@ -56,23 +58,32 @@
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>Slug</th>
-                                <th class="d-flex justify-content-center">Edit</th>
+                                <th class="d-flex justify-content-center">Delete</th>
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
                             @forelse($types as $type)
                                 <tr class="table-light">
                                     <td scope="row" class="pe-5 fw-bold">{{ $type->id }}</td>
-                                    <td class="pe-5">{{ $type->name }}</td>
+                                    <td class="pe-5">
+                                        <form action="{{ route('admin.types.update', $type->slug) }}" method="post">
+                                            @method('PATCH')
+                                            @csrf
+                                            <div class="py-2">
+                                                <div class="input-group">
+                                                    <input type="text" name="name" id="name"
+                                                        value="{{ $type->name }}" class="form-control">
+                                                    <button type="submit"
+                                                        class="input-group-text btn btn-secondary rounded-end"id="inputGroup-sizing-default">Edit
+                                                        <i class="fa-regular fa-pen-to-square ms-2"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </td>
                                     <td class="pe-5">{{ $type->slug }}</td>
                                     <td class="d-flex justify-content-center">
-                                        <a class=" text-white  p-3 py-2 m-2 bg-primary rounded-2"
-                                            href="{{ route('admin.types.show', $type->slug) }}"><i
-                                                class="fa-solid fa-eye"></i></a>
-                                        <a class=" text-white  p-3 py-2 m-2 bg-secondary rounded-2"
-                                            href="{{ route('admin.types.edit', $type->slug) }}"><i
-                                                class="fa-solid fa-pen-to-square"></i></a>
-
                                         <form action="{{ route('admin.types.destroy', $type->slug) }}"
                                             class="m-2 bg-danger rounded-2" method="post">
                                             @method('DELETE')
