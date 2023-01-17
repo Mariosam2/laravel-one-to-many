@@ -34,7 +34,7 @@
             <div class="mb-3 ms-4">
                 <label for="type_id" class="form-label">Types</label>
                 <select class="form-select form-select-md" name="type_id" id="type_id">
-                    <option selected>None</option>
+                    <option value="" selected>None</option>
                     @foreach ($types as $type)
                         <option value="{{ $type->id }}" {{ old('type_id') == $type->id ? 'selected' : '' }}>
                             {{ $type->name }}</option>

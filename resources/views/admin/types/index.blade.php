@@ -13,7 +13,7 @@
                     <div class="mb-3">
                         <div class="input-group mb-3">
                             <input type="text" name="name" id="name"
-                                class="form-control @error('name')  is-invalid @enderror">
+                                class="form-control @error('name') is-invalid @enderror">
                             <button type="submit"
                                 class="input-group-text btn btn-dark rounded-end"id="inputGroup-sizing-default">Add
                                 <i class="fa-solid fa-plus ms-2"></i>
@@ -71,8 +71,13 @@
                                             @csrf
                                             <div class="py-2">
                                                 <div class="input-group">
-                                                    <input type="text" name="name" id="name"
-                                                        value="{{ $type->name }}" class="form-control">
+                                                    <input type="text" name="name" id="{{ 'name' . $type->id }}"
+                                                        value="{{ $type->name }}"
+                                                        class="form-control @error('name' . $type->id) is-invalid @enderror">
+                                                    @error('name' . $type->id)
+                                                        <p class="error">{{ $errors->get('name' . $type->id) }}
+                                                        </p>
+                                                    @enderror
                                                     <button type="submit"
                                                         class="input-group-text btn btn-secondary rounded-end"id="inputGroup-sizing-default">Edit
                                                         <i class="fa-regular fa-pen-to-square ms-2"></i>
