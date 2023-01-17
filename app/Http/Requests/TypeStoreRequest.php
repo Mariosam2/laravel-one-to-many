@@ -24,7 +24,7 @@ class TypeStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'unique:types', 'max:100']
+            'name' => ['required', 'unique:types', 'max:50']
         ];
     }
 }
